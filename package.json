@@ -1,8 +1,8 @@
 {
-  "name": "startbootstrap-sb-admin-2",
-  "title": "SB Admin 2",
-  "version": "3.3.7+1",
-  "homepage": "http://startbootstrap.com/template-overviews/sb-admin-2",
+  "name": "peace-dashboard",
+  "title": "Peace Dashboard",
+  "version": "1.0",
+  "homepage": "http://cs50.stanford.edu",
   "author": "Start Bootstrap",
   "license": {
     "type": "MIT",
