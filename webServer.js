@@ -29,7 +29,7 @@
  *
  */
 
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 var async = require('async');
 
 
@@ -47,7 +47,7 @@ var bodyParser = require('body-parser');
 var fs = require("fs");
 
 // Connect Database
-mongoose.connect('mongodb://localhost/peacelab');
+// mongoose.connect('mongodb://localhost/peacelab');
 
 // Example of loading the Mongoose schema for User, Photo, and SchemaInfo
 // var User = require('./js/schema/user.js');
