@@ -56,13 +56,42 @@ mongoose.connect('mongodb://localhost/peacelab');
 // var SchemaInfo = require('./js/schema/schemaInfo.js');
 
 // Example of reading file (runs at start of "node webServer.js")
-fs.readFile('simple.txt', 'utf8', function (err,data) {
+// fs.readFile('./data/Gender.json', 'utf8', function (err,data) {
+// 	if (err) {
+//     	return console.log(err);
+//   	}
+
+// 	var index = data.indexOf('\n');
+// 	var last  = 0;
+// 	while (index > -1) {
+// 		// Get current line of text 
+// 		var line = data.substring(last, index);
+// 		last = index + 1;
+// 		index = data.indexOf('\n', last);
+// 		var obj = JSON.parse(line)
+// 		console.log(obj['A ID']);
+// 	}
+// });
+
+fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
 	if (err) {
     	return console.log(err);
   	}
-  	console.log(data);
+
+	var index = data.indexOf('\n');
+	var last  = 0;
+	while (index > -1) {
+		// Get current line of text 
+		var line = data.substring(last, index);
+		last = index + 1;
+		index = data.indexOf('\n', last);
+		var obj = JSON.parse(line)
+		console.log(obj['A ID']);
+	}
 });
 
+// var gender_data = require("./data/Gender.json");
+// console.log(gender_data);
 
 // Can also load data from a json file. Stores as JSON object automatically :)
 //var data = require('./data.json');
@@ -74,12 +103,12 @@ app.use(session({secret: 'secretKey', resave: false, saveUninitialized: false}))
 app.use(bodyParser.json());
 
 
-
+var gender_data = "[";
 // Example of getting data from local file 
 app.post('/test', function (request, response) {
 	// Read in lines from simple.txt. This gets stored in the "data" variable as a string
 	// Googled how to do and found this: https://stackoverflow.com/questions/6831918/node-js-read-a-text-file-into-an-array-each-line-an-item-in-the-array
-	var input = fs.createReadStream('simple.txt');
+	var input = fs.createReadStream('./data/Gender.json');
 	var remaining = '';
 	var returnString = '';
 	input.on('data', function(data) {
@@ -91,7 +120,8 @@ app.post('/test', function (request, response) {
 			var line = remaining.substring(last, index);
 			last = index + 1;
 			index = remaining.indexOf('\n', last);
-
+			var obj = JSON.parse(line)
+			console.log(obj);
 			returnString += line
 		}
 
@@ -107,6 +137,130 @@ app.post('/test', function (request, response) {
 		response.header('Charset','utf8');
 		response.status(200).end(returnString);
 	});	
+});
+
+months = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+
+var dorm = "";
+fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
+	if (err) {
+    	gender = "";
+  	} else {
+  		var returnData = [];
+  		data_obj = JSON.parse(data);
+  		var month = 1;
+  		var curr_month_day = 1;
+  		for (var i = 1; i < 366; i++) {
+  			var date = '';
+  			if (curr_month_day <= months[month]) {
+  				date = '2010-' + month + '-' + curr_month_day;
+  			} else {
+  				month++;
+  				curr_month_day = 1;
+  				date = '2010-' + month + '-' + curr_month_day;
+  			}
+  			curr_month_day++;
+  			returnData.push({'Day':date, 'Friendships made': data_obj[i.toString()]});
+  		}
+  		dorm = JSON.stringify(returnData);
+  	}
+});
+
+var gender = "";
+fs.readFile('./data/Cross-Gender.json', 'utf8', function (err,data) {
+	if (err) {
+    	gender = "";
+  	} else {
+  		var returnData = [];
+  		data_obj = JSON.parse(data);
+  		var month = 1;
+  		var curr_month_day = 1;
+  		for (var i = 1; i < 366; i++) {
+  			var date = '';
+  			if (curr_month_day <= months[month]) {
+  				date = '2010-' + month + '-' + curr_month_day;
+  			} else {
+  				month++;
+  				curr_month_day = 1;
+  				date = '2010-' + month + '-' + curr_month_day;
+  			}
+  			curr_month_day++;
+  			returnData.push({'Day':date, 'Friendships made': data_obj[i.toString()]});
+  		}
+  		gender = JSON.stringify(returnData);
+  	}
+});
+
+app.get('/dorm', function(request, response) {
+	response.status(200).end(dorm);
+});
+app.get('/gender', function(request, response) {
+	response.status(200).end(gender);
+});
+
+var dorm_cumulative = "";
+fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
+	if (err) {
+    	dorm_cumulative = [];
+  	} else {
+  		var returnData = [];
+  		data_obj = JSON.parse(data);
+  		var month = 1;
+  		var curr_month_day = 1;
+  		var friendships = 0;
+  		for (var i = 1; i < 366; i++) {
+  			var date = '';
+  			if (curr_month_day <= months[month]) {
+  				date = '2010-' + month + '-' + curr_month_day;
+  			} else {
+  				month++;
+  				curr_month_day = 1;
+  				date = '2010-' + month + '-' + curr_month_day;
+  			}
+  			friendships += data_obj[i.toString()];
+  			curr_month_day++;
+  			returnData.push({'Day':date, 'Friendships made': friendships});
+  		}
+
+  		dorm_cumulative = JSON.stringify(returnData);
+  	}
+});
+
+var gender_cumulative = "";
+fs.readFile('./data/Cross-Gender.json', 'utf8', function (err,data) {
+	if (err) {
+    	gender_cumulative = [];
+  	} else {
+  		var returnData = [];
+  		data_obj = JSON.parse(data);
+  		var month = 1;
+  		var curr_month_day = 1;
+  		var friendships = 0;
+  		for (var i = 1; i < 366; i++) {
+  			var date = '';
+  			if (curr_month_day <= months[month]) {
+  				date = '2010-' + month + '-' + curr_month_day;
+  			} else {
+  				month++;
+  				curr_month_day = 1;
+  				date = '2010-' + month + '-' + curr_month_day;
+  			}
+  			friendships += data_obj[i.toString()];
+  			curr_month_day++;
+  			returnData.push({'Day':date, 'Friendships made': friendships});
+  		}
+
+  		gender_cumulative = JSON.stringify(returnData);
+  	}
+});
+
+app.get('/dorm/cumulative', function(request, response) {
+	response.status(200).end(dorm_cumulative);
+});
+
+app.get('/gender/cumulative', function(request, response) {
+	response.status(200).end(gender_cumulative);
 });
 
 var server = app.listen(3000, function () {
