@@ -72,7 +72,7 @@ var lo = require("lodash");
 // 	}
 // });
 
-var file = "./Mixed.csv";
+var file = "./data/Mixed.csv";
 
 // Converts numerical values from strings to numbers.
 function convertValues(d) {
