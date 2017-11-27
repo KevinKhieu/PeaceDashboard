@@ -68,6 +68,17 @@ function changeToDormCumulative() {
     });
 }
 
+// Click event functions (anything called by HTML) needs to be outside of the $(function().......)!!!!!
+function ChangeDiv(x) {
+    if (x == 0) {
+        document.getElementById("test1").style.display = "none";
+        document.getElementById("test").style.display = "initial";
+    } else {
+        document.getElementById("test1").style.display = "initial";
+        document.getElementById("test").style.display = "none";
+    }
+}
+
 //Loads the correct sidebar on window load,
 //collapses the sidebar on window resize.
 // Sets the min-height of #page-wrapper to window size
@@ -100,28 +111,28 @@ $(function() {
         }
     }); 
 
-    $.ajax({
-        url : "/gender",
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        success: function(data){
-            gender_data = data;
-            console.log(dorm_data);
-            Morris.Line({
-                element: 'morris-area-chart2',
-                data: JSON.parse(dorm_data),
-                xkey: 'Day',
-                ykeys: ['Friendships made'],
-                labels: ['Male-Female Friendships'],
-                pointSize: 2,
-                hideHover: 'auto',
-                resize: true
-            });
-        },
-        error: function (textStatus, errorThrown) {
-           console.log("ERROR: " + textStatus);
-        }
-    }); 
+    // $.ajax({
+    //     url : "/gender",
+    //     type: "GET",
+    //     contentType: "application/json; charset=utf-8",
+    //     success: function(data){
+    //         gender_data = data;
+    //         console.log(dorm_data);
+    //         Morris.Line({
+    //             element: 'morris-area-chart2',
+    //             data: JSON.parse(dorm_data),
+    //             xkey: 'Day',
+    //             ykeys: ['Friendships made'],
+    //             labels: ['Male-Female Friendships'],
+    //             pointSize: 2,
+    //             hideHover: 'auto',
+    //             resize: true
+    //         });
+    //     },
+    //     error: function (textStatus, errorThrown) {
+    //        console.log("ERROR: " + textStatus);
+    //     }
+    // }); 
 
     $.ajax({
         url : "/dorm/cumulative",
@@ -166,9 +177,6 @@ $(function() {
     });
 
     var url = window.location;
-    // var element = $('ul.nav a').filter(function() {
-    //     return this.href == url;
-    // }).addClass('active').parent().parent().addClass('in').parent();
     var element = $('ul.nav a').filter(function() {
         return this.href == url;
     }).addClass('active').parent();
