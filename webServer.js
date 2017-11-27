@@ -32,9 +32,6 @@
 // var mongoose = require('mongoose');
 var async = require('async');
 
-
-
-
 // Required for running server
 var express = require('express');
 var app = express();
@@ -75,8 +72,8 @@ var fs = require("fs");
 
 fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
 	if (err) {
-    	return console.log(err);
-  	}
+    return console.log(err);
+  }
 
 	var index = data.indexOf('\n');
 	var last  = 0;
@@ -169,27 +166,27 @@ fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
 
 var gender = "";
 fs.readFile('./data/Cross-Gender.json', 'utf8', function (err,data) {
-	if (err) {
-    	gender = "";
-  	} else {
-  		var returnData = [];
-  		data_obj = JSON.parse(data);
-  		var month = 1;
-  		var curr_month_day = 1;
-  		for (var i = 1; i < 366; i++) {
-  			var date = '';
-  			if (curr_month_day <= months[month]) {
-  				date = '2010-' + month + '-' + curr_month_day;
-  			} else {
-  				month++;
-  				curr_month_day = 1;
-  				date = '2010-' + month + '-' + curr_month_day;
-  			}
-  			curr_month_day++;
-  			returnData.push({'Day':date, 'Friendships made': data_obj[i.toString()]});
-  		}
-  		gender = JSON.stringify(returnData);
-  	}
+  if (err) {
+    gender = "";
+	} else {
+		var returnData = [];
+		data_obj = JSON.parse(data);
+		var month = 1;
+		var curr_month_day = 1;
+		for (var i = 1; i < 366; i++) {
+			var date = '';
+			if (curr_month_day <= months[month]) {
+				date = '2010-' + month + '-' + curr_month_day;
+			} else {
+				month++;
+				curr_month_day = 1;
+				date = '2010-' + month + '-' + curr_month_day;
+			}
+			curr_month_day++;
+			returnData.push({'Day':date, 'Friendships made': data_obj[i.toString()]});
+		}
+		gender = JSON.stringify(returnData);
+	}
 });
 
 app.get('/dorm', function(request, response) {
@@ -199,6 +196,7 @@ app.get('/gender', function(request, response) {
 	response.status(200).end(gender);
 });
 
+// Read in Data for Dorm Cumulative when WebServer starts. 
 var dorm_cumulative = "";
 fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
 	if (err) {

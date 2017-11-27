@@ -22,7 +22,7 @@ function changeToGenderCumulative() {
         labels: ['Male-Female Friendships (Cumulative)'],
         pointSize: 2,
         hideHover: 'auto',
-        resize: true
+        resize: false
     });
 }
 
@@ -36,7 +36,7 @@ function changeToGender() {
         labels: ['Male-Female Friendships'],
         pointSize: 2,
         hideHover: 'auto',
-        resize: true
+        resize: false
     });
 }
 
@@ -50,7 +50,7 @@ function changeToDorm() {
         labels: ['Cross-Dorm Friendships'],
         pointSize: 2,
         hideHover: 'auto',
-        resize: true
+        resize: false
     });
 }
 
@@ -64,7 +64,7 @@ function changeToDormCumulative() {
         labels: ['Cross-Dorm Friendships (Cumulative)'],
         pointSize: 2,
         hideHover: 'auto',
-        resize: true
+        resize: false
     });
 }
 
@@ -101,7 +101,7 @@ $(function() {
     }); 
 
     $.ajax({
-        url : "/dorm/cumulative",
+        url : "/gender",
         type: "GET",
         contentType: "application/json; charset=utf-8",
         success: function(data){
@@ -112,7 +112,7 @@ $(function() {
                 data: JSON.parse(dorm_data),
                 xkey: 'Day',
                 ykeys: ['Friendships made'],
-                labels: ['Cross-Gender Friendships'],
+                labels: ['Male-Female Friendships'],
                 pointSize: 2,
                 hideHover: 'auto',
                 resize: true
