@@ -42,6 +42,8 @@ var bodyParser = require('body-parser');
 
 // File reading
 var fs = require("fs");
+var d3 = require("d3");
+var lo = require("lodash");
 
 // Connect Database
 // mongoose.connect('mongodb://localhost/peacelab');
@@ -70,6 +72,38 @@ var fs = require("fs");
 // 	}
 // });
 
+var file = "./data/Mixed.csv";
+
+// Converts numerical values from strings to numbers.
+function convertValues(d) {
+  d.Timestamp = +d.Timestamp;
+  d['A ID'] = +d['A ID'];
+  d['A Value'] = +d['A Value'];
+  d['B ID'] = +d['B ID'];
+  d['B Value'] = +d['B Value'];
+}
+
+// Reads in Peace Data csv and returns a JSON object/string with
+// counts for each day by difference boundary.
+var peace_data = "";
+fs.readFile(file, "utf8", function(error, data) {
+  data = d3.csvParse(data);
+  data.forEach(convertValues);
+  
+  var friendshipsByDay = d3.nest().key(function(d) { return d['Difference Boundary'] })
+    .key(function(d) { return d['Timestamp'] })
+    .rollup(function(v) { return v.length })
+    .object(data);
+
+  peace_data = JSON.stringify(friendshipsByDay);
+  //console.log(friendshipsByDay);
+});
+
+app.get('/peace_data', function(request, response) {
+  response.status(200).end(peace_data);
+});
+
+////////////////////////////
 fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
 	if (err) {
     return console.log(err);
