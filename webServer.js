@@ -85,6 +85,7 @@ function convertValues(d) {
 
 // Reads in Peace Data csv and returns a JSON object/string with
 // counts for each day by difference boundary.
+//PUT THIS INSIDE APP.POST
 var peace_data = "";
 fs.readFile(file, "utf8", function(error, data) {
   data = d3.csvParse(data);
@@ -135,6 +136,11 @@ app.use(bodyParser.json());
 
 
 var gender_data = "[";
+
+app.post('/api/csv', function(request, response) {
+
+});
+
 // Example of getting data from local file 
 app.post('/test', function (request, response) {
 	// Read in lines from simple.txt. This gets stored in the "data" variable as a string
