@@ -111,6 +111,16 @@ $(function() {
         }
     }); 
 
+    $.ajax({
+        url : "/peace_data",
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+            peace_data = data;
+            console.log(peace_data);
+            // insert some d3 display function
+        }
+    })
     // $.ajax({
     //     url : "/gender",
     //     type: "GET",
