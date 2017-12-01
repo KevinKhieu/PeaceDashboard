@@ -185,12 +185,12 @@ function displayGraph(id){
           .enter().append("path")
             .attr("d", pathMonth);
 
-        d3.csv("dji.csv", function(error, csv) {
+        d3.csv("../../data/dji.csv", function(error, csv) {
           if (error) throw error;
-
+          header = 'Close';
           var data = d3.nest()
               .key(function(d) { return d.Date; })
-              .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
+              .rollup(function(d) { return (d[0][header] - d[0].Open) / d[0].Open; })
             .object(csv);
 
           rect.filter(function(d) { return d in data; })
@@ -214,7 +214,7 @@ function displayGraph(id){
     if(id === 'linegraph'){
         document.getElementById("calendar").style.display = "none";
         document.getElementById("linegraph").style.display = "initial";
-        document.getElementById("linegraph image").style.display = "none";
+        document.getElementById("linegraphimage").style.display = "none";
         var svg = d3.select("svg"),
             margin = {top: 20, right: 80, bottom: 30, left: 50},
             width = svg.attr("width") - margin.left - margin.right,
@@ -232,7 +232,7 @@ function displayGraph(id){
             .x(function(d) { return x(d.date); })
             .y(function(d) { return y(d.temperature); });
 
-        d3.tsv("data.tsv", type, function(error, data) {
+        d3.csv("dji.csv", type, function(error, data) {
           if (error) throw error;
 
           var cities = data.columns.slice(1).map(function(id) {
