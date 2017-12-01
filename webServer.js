@@ -74,6 +74,9 @@ var lo = require("lodash");
 
 var file = "./data/Mixed.csv";
 
+var multer = require('multer');
+var upload = multer()
+
 // Converts numerical values from strings to numbers.
 function convertValues(d) {
   d.Timestamp = +d.Timestamp;
@@ -137,9 +140,12 @@ app.use(bodyParser.json());
 
 var gender_data = "[";
 
-app.post('/api/csv', function(request, response) {
-
+app.post('/api/csv', upload.single('uploadCsv'), function(request, response) {
+	console.log(request.file);
+	response.status(200).end();
 });
+
+
 
 // Example of getting data from local file 
 app.post('/test', function (request, response) {
