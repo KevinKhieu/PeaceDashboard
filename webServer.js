@@ -86,11 +86,7 @@ function convertValues(d) {
   d['B Value'] = +d['B Value'];
 }
 
-// Reads in Peace Data csv and returns a JSON object/string with
-// counts for each day by difference boundary.
-//PUT THIS INSIDE APP.POST
 
-////////////////////////////
 fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
 	if (err) {
     return console.log(err);
@@ -138,8 +134,8 @@ app.post('/api/csv', upload.single('uploadCsv'), function(request, response) {
   		peace_data = JSON.stringify(friendshipsByDay);
   		//console.log(friendshipsByDay);
 	});
-	console.log(request.file); // request.file is the file!
-	response.status(200).end();
+	console.log(request.file.buffer); // request.file is the file!
+	response.status(200).end(request.file);
 });
 
 app.get('/peace_data', function(request, response) {

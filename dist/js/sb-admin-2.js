@@ -20,9 +20,8 @@ function UploadCSV() {
     var request = new XMLHttpRequest();    
     request.onreadystatechange = function (){
         if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            console.log('yey');
+            console.log(request.file);
         }
-
     }
     request.open('POST','/api/csv', true);
     //request.setRequestHeader('Content-type', 'multipart/form-data'); //----(*)
@@ -117,7 +116,7 @@ $(function() {
         contentType: "application/json; charset=utf-8",
         success: function(data){
             dorm_data = data;
-            console.log(dorm_data);
+            //console.log(dorm_data);
             Morris.Line({
                 element: 'morris-area-chart',
                 data: JSON.parse(dorm_data),
@@ -140,7 +139,7 @@ $(function() {
         contentType: "application/json; charset=utf-8",
         success: function(data) {
             peace_data = data;
-            console.log(peace_data);
+            // console.log(peace_data);
             // insert some d3 display function
         }
     })
