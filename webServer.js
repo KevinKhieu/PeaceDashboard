@@ -86,19 +86,7 @@ function convertValues(d) {
 // Reads in Peace Data csv and returns a JSON object/string with
 // counts for each day by difference boundary.
 //PUT THIS INSIDE APP.POST
-var peace_data = "";
-fs.readFile(file, "utf8", function(error, data) {
-  data = d3.csvParse(data);
-  data.forEach(convertValues);
-  
-  var friendshipsByDay = d3.nest().key(function(d) { return d['Difference Boundary'] })
-    .key(function(d) { return d['Timestamp'] })
-    .rollup(function(v) { return v.length })
-    .object(data);
 
-  peace_data = JSON.stringify(friendshipsByDay);
-  //console.log(friendshipsByDay);
-});
 
 app.get('/peace_data', function(request, response) {
   response.status(200).end(peace_data);
@@ -137,8 +125,26 @@ app.use(bodyParser.json());
 
 var gender_data = "[";
 
-app.post('/api/csv', function(request, response) {
 
+var peace_data = "";
+app.post('/api/csv', function(request, response) {
+	//var peace_data = "";
+	fs.readFile(file, "utf8", function(error, data) {
+  		data = d3.csvParse(data);
+  		data.forEach(convertValues);
+  
+  		var friendshipsByDay = d3.nest().key(function(d) { return d['Difference Boundary'] })
+    	.key(function(d) { return d['Timestamp'] })
+    	.rollup(function(v) { return v.length })
+    	.object(data);
+
+  		peace_data = JSON.stringify(friendshipsByDay);
+  		//console.log(friendshipsByDay);
+	});
+});
+
+app.get('/peace_data', function(request, response) {
+  response.status(200).end(peace_data);
 });
 
 // Example of getting data from local file 
