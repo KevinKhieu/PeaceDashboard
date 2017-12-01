@@ -27,6 +27,7 @@
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="../node_modules/d3/build/d3.js"></script>
 	<script src="../node_modules/lodash/lodash.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
 
 <body>
@@ -90,10 +91,27 @@
             </div>
 
             <!-- PAGE 1 -->
-            <div id = "Welcome" class = "row" style="display:initial;">
+            <div id = "Launchpage" class = "row" style="display:initial;">
+                <div id= "Welcome" class = "title"> Welcome to the Peace Dashboard </div>
+                <div id="Subtitle" class="subtitle" onclick="showGraphOptions()"> Follow the steps below to upload your data </div>
             </div>
 
-            <!-- PAGE 2: TEST (probs not gonna show this in actual functionality - for shwocase) -->
+
+            <div id="graphOptions" class="graphOptions">
+                <div id="goback" class="back">
+                    <button id = "back" type="button" onclick="backButtonClick()"> back </button>
+                </div>
+                    <div id ="calendar" class="calendar" onclick="displayGraph('calendar')">
+                        A) Calendar 
+                        <img src="images/calendarview.png" id="calendarimage">
+                    </div>
+                    <div id="linegraph" class="linegraph" onclick="displayGraph('linegraph')">    
+                        B) Line Graph 
+                        <img src="images/linegraphview.png" id="linegraphimage">
+                    </div>
+            </div>
+
+            <!-- PAGE 2: TEST (probs not g()onna show this in actual functionality - for shwocase) -->
             <div id = "test" class="row">
                 <div class="col-lg-8" style="width:100%; display: none;">
                     <div class="panel panel-default">
