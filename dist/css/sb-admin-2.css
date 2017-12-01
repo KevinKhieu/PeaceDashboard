@@ -24,6 +24,41 @@ body {
     border-left: 1px solid #e7e7e7;
   }
 }
+
+.title{
+  font-size: 35px;
+}
+
+.subtitle{
+  font-size: 20px;
+}
+
+.subtitle:hover{
+  cursor:pointer;
+}
+
+.back{
+  display: block;
+  float:left;
+  align-content: center;
+  color: black;
+  font-size: 12px;
+  font-family: 'Verdana';
+  padding-top: 10px;
+  /*padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;*/
+}
+
+.back:hover{
+  cursor: pointer;
+}
+
+.graphOptions{
+  display:none;
+  cursor:pointer;
+}
+
 .navbar-top-links {
   margin-right: 0;
 }
