@@ -7,10 +7,33 @@ $(function() {
     $('#side-menu').metisMenu();
 });
 
+var formData = new FormData();
 var dorm_data = null;
 var dorm_cumulative_data = null;
 var gender_data = null;
 var gender_cumulative_data = null;
+
+function UploadCSV() {
+    var csv=document.getElementById('csvUploader').files[0];
+    var formData=new FormData();
+    formData.append('uploadCsv', csv);
+    var request = new XMLHttpRequest();    
+    request.onreadystatechange = function (){
+        if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            console.log('yey');
+        }
+
+    }
+    request.open('POST','/api/csv', true);
+    //request.setRequestHeader('Content-type', 'multipart/form-data'); //----(*)
+    request.send(formData);
+}
+
+function uploadedFileChange() {
+    var csv=document.getElementById('csvUploader').files[0];
+    var status = document.getElementById('status');
+    status.innerHTML = csv.name
+}
 
 function changeToGenderCumulative() {
     document.getElementById('morris-area-chart2').innerHTML = '';
@@ -286,6 +309,16 @@ $(function() {
         }
     }); 
 
+    $.ajax({
+        url : "/peace_data",
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+            peace_data = data;
+            console.log(peace_data);
+            // insert some d3 display function
+        }
+    })
     // $.ajax({
     //     url : "/gender",
     //     type: "GET",

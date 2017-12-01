@@ -74,6 +74,9 @@ var lo = require("lodash");
 
 var file = "./data/Mixed.csv";
 
+var multer = require('multer');
+var upload = multer()
+
 // Converts numerical values from strings to numbers.
 function convertValues(d) {
   d.Timestamp = +d.Timestamp;
@@ -85,23 +88,7 @@ function convertValues(d) {
 
 // Reads in Peace Data csv and returns a JSON object/string with
 // counts for each day by difference boundary.
-var peace_data = "";
-fs.readFile(file, "utf8", function(error, data) {
-  data = d3.csvParse(data);
-  data.forEach(convertValues);
-  
-  var friendshipsByDay = d3.nest().key(function(d) { return d['Difference Boundary'] })
-    .key(function(d) { return d['Timestamp'] })
-    .rollup(function(v) { return v.length })
-    .object(data);
-
-  peace_data = JSON.stringify(friendshipsByDay);
-  //console.log(friendshipsByDay);
-});
-
-app.get('/peace_data', function(request, response) {
-  response.status(200).end(peace_data);
-});
+//PUT THIS INSIDE APP.POST
 
 ////////////////////////////
 fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
@@ -135,6 +122,32 @@ app.use(bodyParser.json());
 
 
 var gender_data = "[";
+
+var peace_data = "";
+app.post('/api/csv', upload.single('uploadCsv'), function(request, response) {
+	//var peace_data = "";
+	fs.readFile(file, "utf8", function(error, data) {
+  		data = d3.csvParse(data); 
+  		data.forEach(convertValues);
+  
+  		var friendshipsByDay = d3.nest().key(function(d) { return d['Difference Boundary'] })
+    	.key(function(d) { return d['Timestamp'] })
+    	.rollup(function(v) { return v.length })
+    	.object(data);
+
+  		peace_data = JSON.stringify(friendshipsByDay);
+  		//console.log(friendshipsByDay);
+	});
+	console.log(request.file); // request.file is the file!
+	response.status(200).end();
+});
+
+app.get('/peace_data', function(request, response) {
+  response.status(200).end(peace_data);
+});
+
+
+
 // Example of getting data from local file 
 app.post('/test', function (request, response) {
 	// Read in lines from simple.txt. This gets stored in the "data" variable as a string
