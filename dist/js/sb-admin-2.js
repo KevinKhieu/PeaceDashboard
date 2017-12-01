@@ -20,7 +20,7 @@ function UploadCSV() {
     var request = new XMLHttpRequest();    
     request.onreadystatechange = function (){
         if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            console.log(request.file);
+            console.log("Done uploading.");
         }
     }
     request.open('POST','/api/csv', true);
@@ -231,6 +231,44 @@ function displayGraph(id){
             .x(function(d) { return x(d.date); })
             .y(function(d) { return y(d.temperature); });
 
+        // have a request here for getting the peace data from server
+        var request = new XMLHttpRequest();    
+        var peace_data;
+        request.onreadystatechange = function (){
+          if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            console.log("Done uploading.");
+            peace_data = request.response;
+            makeLineGraph(peace_data);
+          }
+        }
+        request.open('GET','/peace_data', true);
+        request.send();
+        
+
+        function makeLineGraph(data) {
+          data = JSON.parse(peace_data);
+          console.log(data);
+
+          x.domain(d3.extent(data, function(d) { return d.Timestamp; })); 
+          // not sure about the y domain...
+          y.domain([0, d3.max(data, function(d) { return d.count; })]);    
+        
+          svg.append("path")
+            .attr("class", "line")
+            .attr("d", valueline(data));
+
+          svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+          svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
+        }
+        
+/*
+
         d3.csv("dji.csv", type, function(error, data) {
           if (error) throw error;
 
@@ -285,7 +323,7 @@ function displayGraph(id){
               .style("font", "10px sans-serif")
               .text(function(d) { return d.id; });
         });
-
+*/
         function type(d, _, columns) {
           d.date = parseTime(d.date);
           for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
