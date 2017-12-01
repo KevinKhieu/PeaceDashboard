@@ -138,158 +138,160 @@ function displayGraph(id){
     if(id === 'calendar'){
         document.getElementById("calendar").style.display = "initial";
         document.getElementById("linegraph").style.display = "none";
-        // var width = 960,
-        //     height = 136,
-        //     cellSize = 17;
+        document.getElementById("calendarimage").style.display = "none";
+        var width = 960,
+            height = 136,
+            cellSize = 17;
 
-        // var formatPercent = d3.format(".1%");
+        var formatPercent = d3.format(".1%");
 
-        // var color = d3.scaleQuantize()
-        //     .domain([-0.05, 0.05])
-        //     .range(["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
+        var color = d3.scaleQuantize()
+            .domain([-0.05, 0.05])
+            .range(["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 
-        // var svg = d3.select("body")
-        //   .selectAll("svg")
-        //   .data(d3.range(1990, 2011))
-        //   .enter().append("svg")
-        //     .attr("width", width)
-        //     .attr("height", height)
-        //   .append("g")
-        //     .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
+        var svg = d3.select("body")
+          .selectAll("svg")
+          .data(d3.range(1990, 2011))
+          .enter().append("svg")
+            .attr("width", width)
+            .attr("height", height)
+          .append("g")
+            .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
 
-        // svg.append("text")
-        //     .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
-        //     .attr("font-family", "sans-serif")
-        //     .attr("font-size", 10)
-        //     .attr("text-anchor", "middle")
-        //     .text(function(d) { return d; });
+        svg.append("text")
+            .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", 10)
+            .attr("text-anchor", "middle")
+            .text(function(d) { return d; });
 
-        // var rect = svg.append("g")
-        //     .attr("fill", "none")
-        //     .attr("stroke", "#ccc")
-        //   .selectAll("rect")
-        //   .data(function(d) { return d3.timeDays(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
-        //   .enter().append("rect")
-        //     .attr("width", cellSize)
-        //     .attr("height", cellSize)
-        //     .attr("x", function(d) { return d3.timeWeek.count(d3.timeYear(d), d) * cellSize; })
-        //     .attr("y", function(d) { return d.getDay() * cellSize; })
-        //     .datum(d3.timeFormat("%Y-%m-%d"));
+        var rect = svg.append("g")
+            .attr("fill", "none")
+            .attr("stroke", "#ccc")
+          .selectAll("rect")
+          .data(function(d) { return d3.timeDays(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+          .enter().append("rect")
+            .attr("width", cellSize)
+            .attr("height", cellSize)
+            .attr("x", function(d) { return d3.timeWeek.count(d3.timeYear(d), d) * cellSize; })
+            .attr("y", function(d) { return d.getDay() * cellSize; })
+            .datum(d3.timeFormat("%Y-%m-%d"));
 
-        // svg.append("g")
-        //     .attr("fill", "none")
-        //     .attr("stroke", "#000")
-        //   .selectAll("path")
-        //   .data(function(d) { return d3.timeMonths(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
-        //   .enter().append("path")
-        //     .attr("d", pathMonth);
+        svg.append("g")
+            .attr("fill", "none")
+            .attr("stroke", "#000")
+          .selectAll("path")
+          .data(function(d) { return d3.timeMonths(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+          .enter().append("path")
+            .attr("d", pathMonth);
 
-        // d3.csv("dji.csv", function(error, csv) {
-        //   if (error) throw error;
+        d3.csv("dji.csv", function(error, csv) {
+          if (error) throw error;
 
-        //   var data = d3.nest()
-        //       .key(function(d) { return d.Date; })
-        //       .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
-        //     .object(csv);
+          var data = d3.nest()
+              .key(function(d) { return d.Date; })
+              .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
+            .object(csv);
 
-        //   rect.filter(function(d) { return d in data; })
-        //       .attr("fill", function(d) { return color(data[d]); })
-        //     .append("title")
-        //       .text(function(d) { return d + ": " + formatPercent(data[d]); });
-        // });
+          rect.filter(function(d) { return d in data; })
+              .attr("fill", function(d) { return color(data[d]); })
+            .append("title")
+              .text(function(d) { return d + ": " + formatPercent(data[d]); });
+        });
 
-        // function pathMonth(t0) {
-        //   var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
-        //       d0 = t0.getDay(), w0 = d3.timeWeek.count(d3.timeYear(t0), t0),
-        //       d1 = t1.getDay(), w1 = d3.timeWeek.count(d3.timeYear(t1), t1);
-        //   return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
-        //       + "H" + w0 * cellSize + "V" + 7 * cellSize
-        //       + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
-        //       + "H" + (w1 + 1) * cellSize + "V" + 0
-        //       + "H" + (w0 + 1) * cellSize + "Z";
-        //}
+        function pathMonth(t0) {
+          var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
+              d0 = t0.getDay(), w0 = d3.timeWeek.count(d3.timeYear(t0), t0),
+              d1 = t1.getDay(), w1 = d3.timeWeek.count(d3.timeYear(t1), t1);
+          return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
+              + "H" + w0 * cellSize + "V" + 7 * cellSize
+              + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
+              + "H" + (w1 + 1) * cellSize + "V" + 0
+              + "H" + (w0 + 1) * cellSize + "Z";
+        }
     } 
 
     if(id === 'linegraph'){
         document.getElementById("calendar").style.display = "none";
         document.getElementById("linegraph").style.display = "initial";
-        // var svg = d3.select("svg"),
-        //     margin = {top: 20, right: 80, bottom: 30, left: 50},
-        //     width = svg.attr("width") - margin.left - margin.right,
-        //     height = svg.attr("height") - margin.top - margin.bottom,
-        //     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        document.getElementById("linegraph image").style.display = "none";
+        var svg = d3.select("svg"),
+            margin = {top: 20, right: 80, bottom: 30, left: 50},
+            width = svg.attr("width") - margin.left - margin.right,
+            height = svg.attr("height") - margin.top - margin.bottom,
+            g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        // var parseTime = d3.timeParse("%Y%m%d");
+        var parseTime = d3.timeParse("%Y%m%d");
 
-        // var x = d3.scaleTime().range([0, width]),
-        //     y = d3.scaleLinear().range([height, 0]),
-        //     z = d3.scaleOrdinal(d3.schemeCategory10);
+        var x = d3.scaleTime().range([0, width]),
+            y = d3.scaleLinear().range([height, 0]),
+            z = d3.scaleOrdinal(d3.schemeCategory10);
 
-        // var line = d3.line()
-        //     .curve(d3.curveBasis)
-        //     .x(function(d) { return x(d.date); })
-        //     .y(function(d) { return y(d.temperature); });
+        var line = d3.line()
+            .curve(d3.curveBasis)
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.temperature); });
 
-        // d3.tsv("data.tsv", type, function(error, data) {
-        //   if (error) throw error;
+        d3.tsv("data.tsv", type, function(error, data) {
+          if (error) throw error;
 
-        //   var cities = data.columns.slice(1).map(function(id) {
-        //     return {
-        //       id: id,
-        //       values: data.map(function(d) {
-        //         return {date: d.date, temperature: d[id]};
-        //       })
-        //     };
-        //   });
+          var cities = data.columns.slice(1).map(function(id) {
+            return {
+              id: id,
+              values: data.map(function(d) {
+                return {date: d.date, temperature: d[id]};
+              })
+            };
+          });
 
-        //   x.domain(d3.extent(data, function(d) { return d.date; }));
+          x.domain(d3.extent(data, function(d) { return d.date; }));
 
-        //   y.domain([
-        //     d3.min(cities, function(c) { return d3.min(c.values, function(d) { return d.temperature; }); }),
-        //     d3.max(cities, function(c) { return d3.max(c.values, function(d) { return d.temperature; }); })
-        //   ]);
+          y.domain([
+            d3.min(cities, function(c) { return d3.min(c.values, function(d) { return d.temperature; }); }),
+            d3.max(cities, function(c) { return d3.max(c.values, function(d) { return d.temperature; }); })
+          ]);
 
-        //   z.domain(cities.map(function(c) { return c.id; }));
+          z.domain(cities.map(function(c) { return c.id; }));
 
-        //   g.append("g")
-        //       .attr("class", "axis axis--x")
-        //       .attr("transform", "translate(0," + height + ")")
-        //       .call(d3.axisBottom(x));
+          g.append("g")
+              .attr("class", "axis axis--x")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x));
 
-        //   g.append("g")
-        //       .attr("class", "axis axis--y")
-        //       .call(d3.axisLeft(y))
-        //     .append("text")
-        //       .attr("transform", "rotate(-90)")
-        //       .attr("y", 6)
-        //       .attr("dy", "0.71em")
-        //       .attr("fill", "#000")
-        //       .text("Temperature, ºF");
+          g.append("g")
+              .attr("class", "axis axis--y")
+              .call(d3.axisLeft(y))
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", "0.71em")
+              .attr("fill", "#000")
+              .text("Temperature, ºF");
 
-        //   var city = g.selectAll(".city")
-        //     .data(cities)
-        //     .enter().append("g")
-        //       .attr("class", "city");
+          var city = g.selectAll(".city")
+            .data(cities)
+            .enter().append("g")
+              .attr("class", "city");
 
-        //   city.append("path")
-        //       .attr("class", "line")
-        //       .attr("d", function(d) { return line(d.values); })
-        //       .style("stroke", function(d) { return z(d.id); });
+          city.append("path")
+              .attr("class", "line")
+              .attr("d", function(d) { return line(d.values); })
+              .style("stroke", function(d) { return z(d.id); });
 
-        //   city.append("text")
-        //       .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
-        //       .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
-        //       .attr("x", 3)
-        //       .attr("dy", "0.35em")
-        //       .style("font", "10px sans-serif")
-        //       .text(function(d) { return d.id; });
-        // });
+          city.append("text")
+              .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
+              .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+              .attr("x", 3)
+              .attr("dy", "0.35em")
+              .style("font", "10px sans-serif")
+              .text(function(d) { return d.id; });
+        });
 
-        // function type(d, _, columns) {
-        //   d.date = parseTime(d.date);
-        //   for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
-        //   return d;
-        // }
+        function type(d, _, columns) {
+          d.date = parseTime(d.date);
+          for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
+          return d;
+        }
     }
 }
 
