@@ -87,11 +87,6 @@ function convertValues(d) {
 // counts for each day by difference boundary.
 //PUT THIS INSIDE APP.POST
 
-
-app.get('/peace_data', function(request, response) {
-  response.status(200).end(peace_data);
-});
-
 ////////////////////////////
 fs.readFile('./data/Dorm.json', 'utf8', function (err,data) {
 	if (err) {
