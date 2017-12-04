@@ -226,17 +226,22 @@ function displayGraph(id){
             y = d3.scaleLinear().range([height, 0]),
             z = d3.scaleOrdinal(d3.schemeCategory10);
 
-        var line = d3.line()
-            .curve(d3.curveBasis)
-            .x(function(d) { return x(d.date); })
-            .y(function(d) { return y(d.temperature); });
+        var xAxis = d3.axis().scale(x)
+          .orient("bottom").ticks(5);
+
+        var yAxis = d3.axis().scale(y)
+          .orient("left").ticks(5);
+
+        var valueline = d3.line()
+            .x(function(d) { return x(d.Timestamp); })
+            .y(function(d) { return y(d.count); });
 
         // have a request here for getting the peace data from server
         var request = new XMLHttpRequest();    
         var peace_data;
         request.onreadystatechange = function (){
           if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            console.log("Done uploading.");
+            console.log("Front end.");
             peace_data = request.response;
             makeLineGraph(peace_data);
           }
