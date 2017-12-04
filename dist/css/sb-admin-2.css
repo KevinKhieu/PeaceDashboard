@@ -9,6 +9,14 @@ body {
 #wrapper {
   width: 100%;
 }
+
+.page-header{
+  background-color: #8c1515;
+  color:white;
+  font-size: 60px;
+  letter-spacing: 13px;
+}
+
 #page-wrapper {
   padding: 0 15px;
   min-height: 568px;
@@ -23,12 +31,24 @@ body {
 }
 
 .description{
-  font-size: 20px;
-  font-family: 'Verdana';
+  font-size: 25px;
+  font-family: 'Trebuchet MS';
+  background: #8c1515;
+  padding: 20px;
+  display: block;
+  align-content: center;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px dashed white;
+  opacity: 0.7;
 }
 
 .title{
-  font-size: 35px;
+  font-size: 45px;
+  border: 1px dashed black;
 }
 
 .subtitle{
@@ -41,7 +61,7 @@ body {
   align-content: center;
   color: black;
   font-size: 12px;
-  font-family: 'Verdana';
+  font-family: 'Trebuchet MS';
   padding-top: 10px;
   /*padding-bottom: 10px;
   padding-left: 10px;
@@ -531,15 +551,24 @@ table.dataTable thead .sorting:after {
 
 .modal-header {
     padding: 2px 16px;
-    background-color: #5cb85c;
     color: white;
+    background-color: #8c1515;
+    font-family: 'Trebuchet MS';
+    font-size: 35px;
 }
 
 .modal-body {padding: 2px 16px;}
 
 .modal-footer {
     padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
+    background-color: white;
+    color: black;
+    font-family: 'Trebuchet MS';
+}
+
+.uploadCSV{
+  background-color: #8c1515;
+  font-family: 'Trebuchet MS';
+  font-size: 35px;
 }
 </style>

@@ -21,6 +21,7 @@ function UploadCSV() {
     request.onreadystatechange = function (){
         if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
             showGraphOptions();
+            document.getElementById('myModal').style.display = "none";
         }
     }
     request.open('POST','/api/csv', true);
