@@ -131,7 +131,7 @@ app.post('/api/csv', upload.single('uploadCsv'), function(request, response) {
     .object(data);
 
   peace_data = JSON.stringify(friendshipsByDay);		
-
+  console.log(peace_data);
 	response.status(200).end(peace_data);
 });
 

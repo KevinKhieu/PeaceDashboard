@@ -19,10 +19,12 @@ body {
 @media (min-width: 768px) {
   #page-wrapper {
     position: inherit;
-    margin: 0 0 0 250px;
-    padding: 0 30px;
-    border-left: 1px solid #e7e7e7;
   }
+}
+
+.description{
+  font-size: 20px;
+  font-family: 'Verdana';
 }
 
 .title{
@@ -31,10 +33,6 @@ body {
 
 .subtitle{
   font-size: 20px;
-}
-
-.subtitle:hover{
-  cursor:pointer;
 }
 
 .back{

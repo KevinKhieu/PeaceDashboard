@@ -20,7 +20,7 @@ function UploadCSV() {
     var request = new XMLHttpRequest();    
     request.onreadystatechange = function (){
         if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            console.log("Done uploading.");
+            showGraphOptions();
         }
     }
     request.open('POST','/api/csv', true);
@@ -228,59 +228,92 @@ function displayGraph(id){
         document.getElementById("calendar").style.display = "none";
         document.getElementById("linegraph").style.display = "initial";
         document.getElementById("linegraphimage").style.display = "none";
-<<<<<<< HEAD
-        var svg = d3.select("svg"),
-            margin = {top: 20, right: 80, bottom: 30, left: 50},
-            width = svg.attr("width") - margin.left - margin.right,
-            height = svg.attr("height") - margin.top - margin.bottom,
-            g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        
 
-        var parseTime = d3.timeParse("%Y%m%d");
+        // have a request here for getting the peace data from server
+        var request = new XMLHttpRequest();    
+        var peace_data;
+        request.onreadystatechange = function (){
+          if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            console.log("Front end.");
+            peace_data = JSON.parse(request.response);
+            makeLineGraph(peace_data);
+          }
+        }
+        request.open('GET','/peace_data', true);
+        request.send();
+        
+        function makeLineGraph(data) {
+          console.log(data);
+          var margin = {top: 20, right: 80, bottom: 50, left: 50},
+            // width = svg.attr("width") - margin.left - margin.right,
+            // height = svg.attr("height") - margin.top - margin.bottom,
+            width = 1000,
+            height = 1000;
+          var parseTime = d3.timeParse("%Y%m%d");
+          var x = d3.scaleTime().range([0, width]),
+              y = d3.scaleLinear().range([height, 0]);
+          // z = d3.scaleOrdinal(d3.schemeCategory10);
+          var valueline = d3.line()
+            .x(function(d) { return x(d.Timestamp); })
+            .y(function(d) { return y(d.length); });
 
-        var x = d3.scaleTime().range([0, width]),
-            y = d3.scaleLinear().range([height, 0]),
-            z = d3.scaleOrdinal(d3.schemeCategory10);
+          var svg = d3.select("body").append("svg")
+              .attr("width", width+margin.left+margin.right)
+              .attr("height", height+margin.top+margin.bottom)
+            .append("g")
+              .attr("transform", 
+                "translate(" + margin.left + "," + margin.top + ")");
 
-        var line = d3.line()
-            .curve(d3.curveBasis)
-            .x(function(d) { return x(d.date); })
-            .y(function(d) { return y(d.temperature); });
+          var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        // d3.csv("dji.csv", type, function(error, data) {
-        //   if (error) throw error;
+          var line = d3.line()
+              .curve(d3.curveBasis)
+              .x(function(d) { return x(d.Timestamp); })
+              .y(function(d) { return y(d.length); });
 
-        //   var cities = data.columns.slice(1).map(function(id) {
-        //     return {
-        //       id: id,
-        //       values: data.map(function(d) {
-        //         return {date: d.date, temperature: d[id]};
-        //       })
-        //     };
-        //   });
+          var xAxis = d3.axisBottom(x).ticks(5);
 
-        //   x.domain(d3.extent(data, function(d) { return d.date; }));
+          var yAxis = d3.axisLeft(y).ticks(5);
 
-        //   y.domain([
-        //     d3.min(cities, function(c) { return d3.min(c.values, function(d) { return d.temperature; }); }),
-        //     d3.max(cities, function(c) { return d3.max(c.values, function(d) { return d.temperature; }); })
-        //   ]);
+            g.append("g")
+                .attr("class", "axis axis--x")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x))
+              .append("text")
+                .attr("x", 10)
+                // .attr("dx", "0.71em")
+                .attr("fill", "#000")
+                .text("Timestamp");
 
-        //   z.domain(cities.map(function(c) { return c.id; }));
+            g.append("g")
+                .attr("class", "axis axis--y")
+                .call(d3.axisLeft(y))
+              .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 10)
+                // .attr("dy", "0.71em")
+                .attr("fill", "#000")
+                .text("Number of Friendships");
 
-        //   g.append("g")
-        //       .attr("class", "axis axis--x")
-        //       .attr("transform", "translate(0," + height + ")")
-        //       .call(d3.axisBottom(x));
+            x.domain(d3.extent(data, function(d) { return d.Timestamp; })); 
+            console.log("timestamped");
+            // not sure about the y domain...
+            y.domain([0, d3.max(data, function(d) { return d.length; })]);    
+          
+            g.append("path")
+              .attr("class", "line")
+              .attr("d", valueline(data));
 
-        //   g.append("g")
-        //       .attr("class", "axis axis--y")
-        //       .call(d3.axisLeft(y))
-        //     .append("text")
-        //       .attr("transform", "rotate(-90)")
-        //       .attr("y", 6)
-        //       .attr("dy", "0.71em")
-        //       .attr("fill", "#000")
-        //       .text("Temperature, ºF");
+            g.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height + ")")
+              .call(xAxis);
+
+            g.append("g")
+              .attr("class", "y axis")
+              .call(yAxis);
+        }
 
         //   var city = g.selectAll(".city")
         //     .data(cities)
@@ -301,69 +334,18 @@ function displayGraph(id){
         //       .text(function(d) { return d.id; });
         // });
 
-        function type(d, _, columns) {
-          d.date = parseTime(d.date);
-          for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
-          return d;
-        }
-=======
-        var svg = d3.select("svg"),
-            margin = {top: 20, right: 80, bottom: 30, left: 50},
-            width = svg.attr("width") - margin.left - margin.right,
-            height = svg.attr("height") - margin.top - margin.bottom,
-            g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        // function type(d, _, columns) {
+        //   d.date = parseTime(d.date);
+        //   for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
+        //   return d;
+        // }
+        // var svg = d3.select("svg"),
+        //     margin = {top: 20, right: 80, bottom: 30, left: 50},
+        //     width = svg.attr("width") - margin.left - margin.right,
+        //     height = svg.attr("height") - margin.top - margin.bottom,
+        //     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        var parseTime = d3.timeParse("%Y%m%d");
 
-        var x = d3.scaleTime().range([0, width]),
-            y = d3.scaleLinear().range([height, 0]),
-            z = d3.scaleOrdinal(d3.schemeCategory10);
-
-        var xAxis = d3.axis().scale(x)
-          .orient("bottom").ticks(5);
-
-        var yAxis = d3.axis().scale(y)
-          .orient("left").ticks(5);
-
-        var valueline = d3.line()
-            .x(function(d) { return x(d.Timestamp); })
-            .y(function(d) { return y(d.count); });
-
-        // have a request here for getting the peace data from server
-        var request = new XMLHttpRequest();    
-        var peace_data;
-        request.onreadystatechange = function (){
-          if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            console.log("Front end.");
-            peace_data = request.response;
-            makeLineGraph(peace_data);
-          }
-        }
-        request.open('GET','/peace_data', true);
-        request.send();
-        
-
-        function makeLineGraph(data) {
-          data = JSON.parse(peace_data);
-          console.log(data);
-
-          x.domain(d3.extent(data, function(d) { return d.Timestamp; })); 
-          // not sure about the y domain...
-          y.domain([0, d3.max(data, function(d) { return d.count; })]);    
-        
-          svg.append("path")
-            .attr("class", "line")
-            .attr("d", valueline(data));
-
-          svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-          svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis);
-        }
         
 /*
 
@@ -427,7 +409,6 @@ function displayGraph(id){
           for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
           return d;
         }
->>>>>>> 8077cc6fb1601c01e015f4e48e97cafc0feb5203
     }
 }
 
