@@ -245,6 +245,19 @@ function displayGraph(id){
         
         function makeLineGraph(data) {
           console.log(data);
+          data = data['Gender']
+          console.log(data);
+          var arr = [];
+
+          for (var key in data) {
+              if (data.hasOwnProperty(key)) {
+                  arr.push( [ key, data[key] ] );
+              }
+          }
+          console.log(arr);
+          data = arr;
+          // data={gender: [], student_faculty: []}
+          // setting margins/axes
           var margin = {top: 20, right: 80, bottom: 50, left: 50},
             // width = svg.attr("width") - margin.left - margin.right,
             // height = svg.attr("height") - margin.top - margin.bottom,
@@ -255,8 +268,8 @@ function displayGraph(id){
               y = d3.scaleLinear().range([height, 0]);
           // z = d3.scaleOrdinal(d3.schemeCategory10);
           var valueline = d3.line()
-            .x(function(d) { return x(d.Timestamp); })
-            .y(function(d) { return y(d.length); });
+            .x(function(d) { return x(d[0]); })
+            .y(function(d) { return y(d[1]); });
 
           var svg = d3.select("body").append("svg")
               .attr("width", width+margin.left+margin.right)
@@ -269,8 +282,8 @@ function displayGraph(id){
 
           var line = d3.line()
               .curve(d3.curveBasis)
-              .x(function(d) { return x(d.Timestamp); })
-              .y(function(d) { return y(d.length); });
+              .x(function(d) { return x(d[0]); })
+              .y(function(d) { return y(d[1]); });
 
           var xAxis = d3.axisBottom(x).ticks(5);
 
@@ -296,10 +309,10 @@ function displayGraph(id){
                 .attr("fill", "#000")
                 .text("Number of Friendships");
 
-            x.domain(d3.extent(data, function(d) { return d.Timestamp; })); 
+            x.domain(d3.extent(data, function(d) { return d[0]; })); 
             console.log("timestamped");
             // not sure about the y domain...
-            y.domain([0, d3.max(data, function(d) { return d.length; })]);    
+            y.domain([0, d3.max(data, function(d) { return d[1]; })]);    
           
             g.append("path")
               .attr("class", "line")
