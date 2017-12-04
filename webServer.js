@@ -130,6 +130,9 @@ app.post('/api/csv', upload.single('uploadCsv'), function(request, response) {
     .rollup(function(v) { return v.length })
     .object(data);
 
+  // make each key (rn it's a date) into a value with key "Date/Timestamp"
+  // make each value into a value with key "Count/Friendships Made"
+
   peace_data = JSON.stringify(friendshipsByDay);		
   console.log(peace_data);
 	response.status(200).end(peace_data);
