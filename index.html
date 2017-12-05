@@ -12,7 +12,7 @@
     <title class="headerBar">Positive Peace</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -41,26 +41,19 @@
     <div class="modal-content">
         <div class="modal-header">
           <span class="close">&times;</span>
-          <h2 class="uploadCSV">Upload your CSV File </h2>
+          <h2 class="uploadCSV">Upload CSV File </h2>
         </div>
         <div class="modal-body">
-          <p>Press your CSV File and send it in</p>
+          <p>Select your .csv file and upload it!</p>
         </div>
         <div class="modal-footer">
             <input id = "csvUploader" type="file" accept=".csv" name="csvfile" onchange="uploadedFileChange()"/>
-            <span id = "status" style = "height: 30px; font-size: 16px; margin-right: 40px;"></span>
+            <span id = "status" style = "height: 30px; font-size: 16px; margin-right: 40px; font-family: 'Trebuchet MS';"></span>
             <button id = "uploadFileBtn" class="btn btn-default" type="button" onclick="UploadCSV()">Upload</button>
         </div>
     </div>
 </div>
 </body>
-                                
-<!--                                 <button class="btn btn-default" type="button" onclick="ChangeDiv(0)">
-                                    Change Div to Test
-                                </button>
-                                <button class="btn btn-default" type="button" onclick="ChangeDiv(1)">
-                                    Change Div to Test1
-                                </button> -->
                             </span>
                             </div>
                             </input-group>
@@ -72,16 +65,17 @@
 
         <div id="page-wrapper">
             <div class="page-header">
-                    POSITIVE PEACE
+                    - POSITIVE PEACE -
                 <!-- /.col-lg-12 -->
             </div>
 
             <!-- PAGE 1 -->
             <div id = "Launchpage" class = "row" style="display:initial;">
                 <div id="Welcome" class ="title"> Welcome to the Peace Dashboard </div>
-                <div class="subtitle"> supported by the Stanford Peace Innovation Lab </div>
+                <div class="subtitle"> -> supported by the <i> Stanford Peace Innovation Lab</i> </div>
+                <img src="images/earth.jpg" height="500" width="500">
                 <div class="description"> The Peace Innovation Lab at Stanford — a global community consisting of thought leaders from the fields of behavior design, innovation, persuasive and social technologies and finance — increases positive peace via real world interventions as well as urban-scale innovations.  </div>
-                <div id="Subtitle" class="subtitle"> Click the button below to start plotting your data </div>
+                <div id="Subtitle" class="subtitle"> Click the button below to start plotting your data! </div>
                 <br>
                 <button id = "PlotData" class="btn btn-default" type="button" onclick="ChangeDiv(1)">
                     Plot My Data
@@ -91,14 +85,20 @@
                 <div id="goback" class="back">
                     <button id = "back" type="button" onclick="backButtonClick()"> back </button>
                 </div>
+                    <br>
+                    <div id="page2" class="page2">Select a Graph Style For Your Data: </div>
                     <div id ="calendar" class="calendar" onclick="displayGraph('calendar')">
-                        A) Calendar 
-                        <img src="images/calendarview.png" id="calendarimage">
+                        <div id="optionCal"> A) Calendar </div>
+                        <br>
+                        <img src="images/calendarview.png" id="calendarimage" style="border: 1px dashed black; padding:10px;" width="500" height="300">
                     </div>
+                    <br>
+                    <br>
                     <div id="linegraph" class="linegraph" onclick="displayGraph('linegraph')">  
-                        B) Line Graph 
+                        <div id="optionLine"> B) Line Graph </div>
+                        <br>
+                        <img src="images/linegraphview.png" id="linegraphimage" style="border:1px dashed black; padding:10px" width="500" height="300">
                         <svg class="svg"></svg>  
-                        <img src="images/linegraphview.png" id="linegraphimage">
                     </div>
             </div>
 

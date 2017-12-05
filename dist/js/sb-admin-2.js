@@ -113,6 +113,7 @@ function showGraphOptions(){
 
 function goBackToLaunch(){
     document.getElementById("Launchpage").style.display="initial";
+    document.getElementById("page2").style.display="none";
     document.getElementById("graphOptions").style.display="none";
 }
 
@@ -148,10 +149,12 @@ function displayGraph(id){
     var backBtn = document.getElementById('back');
     backButton = backBtnClick();
     console.log(backBtn);
+    document.getElementById("page2").style.display = "none";
     //backBtn.addEventListener("click", backBtnClick(), true);
     if(id === 'calendar'){
         document.getElementById("calendar").style.display = "initial";
         document.getElementById("linegraph").style.display = "none";
+        document.getElementById("optionCal").style.display = "none";
         document.getElementById("calendarimage").style.display = "none";
         var width = 960,
             height = 136,
@@ -229,6 +232,7 @@ function displayGraph(id){
         document.getElementById("calendar").style.display = "none";
         document.getElementById("linegraph").style.display = "initial";
         document.getElementById("linegraphimage").style.display = "none";
+        document.getElementById("optionLine").style.display = "none";
         
 
         // have a request here for getting the peace data from server
