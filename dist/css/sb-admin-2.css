@@ -20,11 +20,12 @@ body {
   font-style: underline;
   height: 100px;
   line-height: 175%;
-  font-style: italic;
 =======
   letter-spacing: 9px;
 >>>>>>> 0830e498fd520b3fd9cdeca5725d8d369a6978f9
 }
+
+
 
 #page-wrapper {
   padding: 0 15px;
