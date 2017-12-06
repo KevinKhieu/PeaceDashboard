@@ -109,12 +109,17 @@ function showGraphOptions(){
     document.getElementById("Launchpage").style.display="none";
     document.getElementById("calendarimage").style.display = "initial";
     document.getElementById("linegraphimage").style.display = "initial";
+    document.getElementById("optionCal").style.display="initial";
+    document.getElementById("optionLine").style.display="initial";
+    document.getElementById("svg").style.display="none";
 }
 
 function goBackToLaunch(){
     document.getElementById("Launchpage").style.display="initial";
     document.getElementById("page2").style.display="none";
     document.getElementById("graphOptions").style.display="none";
+    document.getElementById("optionLine").style.display="none";
+    document.getElementById("optionCal").style.display="none";
 }
 
 function backBtnClick() {
@@ -127,6 +132,8 @@ function backBtnClick() {
     document.getElementById("linegraph").style.display = "initial";
     document.getElementById("calendarimage").style.display = "initial";
     document.getElementById("linegraphimage").style.display = "initial";
+    document.getElementById("optionCal").style.display="initial";
+    document.getElementById("optionLine").style.display="initial";
    // }
 }
 
@@ -168,7 +175,7 @@ function displayGraph(id){
 
         var svg = d3.select("body")
           .selectAll("svg")
-          .data(d3.range(1990, 2011))
+          .data(d3.range(2010, 2011))
           .enter().append("svg")
             .attr("width", width)
             .attr("height", height)

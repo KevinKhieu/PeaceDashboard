@@ -15,15 +15,16 @@ body {
   background-color: #F9F6EF;
   color:black;
   font-size: 60px;
-<<<<<<< HEAD
   letter-spacing: 13px;
   font-style: underline;
   height: 100px;
   line-height: 175%;
   font-style: italic;
-=======
   letter-spacing: 9px;
->>>>>>> 0830e498fd520b3fd9cdeca5725d8d369a6978f9
+}
+
+.page-header:hover{
+  cursor:pointer;
 }
 
 #page-wrapper {
@@ -52,11 +53,8 @@ body {
 }
 
 .description{
-<<<<<<< HEAD
   font-size: 15px;
-=======
   font-size: 14px;
->>>>>>> 0830e498fd520b3fd9cdeca5725d8d369a6978f9
   font-family: 'Trebuchet MS';
   background: #8c1515;
   padding: 20px;
@@ -77,15 +75,11 @@ body {
 }
 .title{
   font-size: 45px;
-<<<<<<< HEAD
   border: 1px dashed black;
   margin-top: 60px;
   background-color: #F9F6EF;
   font-family: 'Palatino';
   padding: 10px;
-=======
-  /*border: 1px dashed black;*/
->>>>>>> 0830e498fd520b3fd9cdeca5725d8d369a6978f9
 }
 
 .subtitle{
@@ -97,12 +91,16 @@ body {
 .back{
   display: block;
   float:left;
+  padding-left: 10px;
+  padding-right: 10px;
   align-content: center;
   color: black;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Palatino';
-  padding-top: 10px;
-  text-transform: uppercase;
+  line-height: 250%;
+  border:1px dashed black;
+  background-color: #F9F6EF;
+  transition: background-color 1500ms ease;
   /*padding-bottom: 10px;
   padding-left: 10px;
   padding-right: 10px;*/
@@ -110,6 +108,8 @@ body {
 
 .back:hover{
   cursor: pointer;
+  background-color: white;
+
 }
 
 .page2{
