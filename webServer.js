@@ -79,7 +79,7 @@ var upload = multer( {inMemory: true } )
 
 // Converts numerical values from strings to numbers.
 function convertValues(d) {
-  d.Timestamp = +d.Timestamp;
+  d.Timestamp = new Date(d.Timestamp);
   d['A ID'] = +d['A ID'];
   d['A Value'] = +d['A Value'];
   d['B ID'] = +d['B ID'];
