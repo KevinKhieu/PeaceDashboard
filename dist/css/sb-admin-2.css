@@ -15,12 +15,10 @@ body {
   background-color: #F9F6EF;
   color:black;
   font-size: 60px;
-  letter-spacing: 13px;
+  /*letter-spacing: 13px;*/
   font-style: underline;
   height: 100px;
-  line-height: 175%;
-  font-style: italic;
-  letter-spacing: 9px;
+/*  line-height: 175%;*/
 }
 
 .page-header:hover{
@@ -99,7 +97,7 @@ body {
   color: black;
   font-size: 14px;
   font-family: 'Palatino';
-  line-height: 250%;
+/*  line-height: 250%;*/
   border:1px dashed black;
   background-color: #F9F6EF;
   transition: background-color 1500ms ease;
