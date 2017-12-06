@@ -202,19 +202,48 @@ function displayGraph(id){
           .enter().append("path")
             .attr("d", pathMonth);
 
-        d3.csv("../../data/dji.csv", function(error, csv) {
-          if (error) throw error;
-          header = 'Close';
-          var data = d3.nest()
-              .key(function(d) { return d.Date; })
-              .rollup(function(d) { return (d[0][header] - d[0].Open) / d[0].Open; })
-            .object(csv);
+        var request = new XMLHttpRequest();    
+        var peace_data;
+        request.onreadystatechange = function (){
+          if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            console.log("Front end.");
+            peace_data = JSON.parse(request.response);
+            data = peace_data['Gender'];
 
-          rect.filter(function(d) { return d in data; })
-              .attr("fill", function(d) { return color(data[d]); })
+            var arr = [];
+
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    arr.push( [ key, data[key] ] );
+                }
+            }
+            console.log(arr);
+            data = arr;
+
+            rect.filter(function(d) { return d in data; })
+              .attr("fill", function(d) { return color(data[d][1]); })
             .append("title")
-              .text(function(d) { return d + ": " + formatPercent(data[d]); });
-        });
+              .text(function(d) { return d + ": " + formatPercent(data[d][1]); });
+            
+          }
+        }
+        request.open('GET','/peace_data', true);
+        request.send();
+        
+
+        // d3.csv("../../data/dji.csv", function(error, csv) {
+        //   if (error) throw error;
+        //   header = 'Close';
+        //   var data = d3.nest()
+        //       .key(function(d) { return d.Date; })
+        //       .rollup(function(d) { return (d[0][header] - d[0].Open) / d[0].Open; })
+        //     .object(csv);
+
+        //   rect.filter(function(d) { return d in data; })
+        //       .attr("fill", function(d) { return color(data[d]); })
+        //     .append("title")
+        //       .text(function(d) { return d + ": " + formatPercent(data[d]); });
+        // });
 
         function pathMonth(t0) {
           var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
@@ -250,7 +279,7 @@ function displayGraph(id){
         
         function makeLineGraph(data) {
           console.log(data);
-          data = data['Gender']
+          data = data['Gender'];
           console.log(data);
           var arr = [];
 
