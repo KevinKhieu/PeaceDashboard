@@ -11,6 +11,7 @@
 
     <title class="headerBar">Positive Peace</title>
 
+
     <!-- Bootstrap Core CSS -->
     <!-- <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 
@@ -64,19 +65,33 @@
 
 
         <div id="page-wrapper">
+<<<<<<< HEAD
+            <div class="page-header" onclick="goBackToLaunch()">
+=======
             <div class="page-header">
+                <img src="images/StanfordEmblem.png" id="stanfordEmblem" width="80" height="80" class="center">
+>>>>>>> a50034d00e194fba03880fa4c20163be6b5e7943
                     - POSITIVE PEACE -
+                        <img src="images/StanfordLab.png" id="StanfordLab" width="70" height="70" class ="center">
+                           <div.center {
+                           margin: 0 auto;
+                           width: 80em;>
+                       
+
+                
+
                 <!-- /.col-lg-12 -->
             </div>
 
             <!-- PAGE 1 -->
             <div id = "Launchpage" class = "row" style="display:initial;">
                 <div id="Welcome" class ="title"> Welcome to the Peace Dashboard </div>
-                <div class="subtitle"> -> supported by the <i> Stanford Peace Innovation Lab</i> </div>
+<<<<<<< HEAD
+                <div class="subtitle"> -> supported by the <i> <a href="https://peaceinnovation.stanford.edu/" target="_blank">Stanford Peace Innovation Lab</a></i> </div>
+=======
+                <div class="subtitle"> supported by the <i> Stanford Peace Innovation Lab</i> </div>
+>>>>>>> a50034d00e194fba03880fa4c20163be6b5e7943
                 <img src="images/earth.jpg" height="500" width="500">
-                <div class="subtitle"> supported by the 
-                    <a href="https://peaceinnovation.stanford.edu/" target="_blank">Stanford Peace Innovation Lab</a>
-                </div>
                 <br>
                 <br>
                 <div class="description"> The Peace Innovation Lab at Stanford — a global community consisting of thought leaders from the fields of behavior design, innovation, persuasive and social technologies and finance — increases positive peace via real world interventions as well as urban-scale innovations.  </div>
@@ -87,10 +102,14 @@
                 </button>
             </div>
             <div id="graphOptions" class="graphOptions">
+                <br>
+                <br>
                 <div id="goback" class="back">
-                    <button id = "back" type="button" onclick="backButtonClick()"> back </button>
+                    <div id = "back" type="button" onclick="backButtonClick()"> Start Over </div>
                 </div>
                     <br>
+                    <br>
+                    <p>
                     <div id="page2" class="page2">Select a Graph Style For Your Data: </div>
                     <div id ="calendar" class="calendar" onclick="displayGraph('calendar')">
                         <div id="optionCal"> A) Calendar </div>
@@ -103,8 +122,9 @@
                         <div id="optionLine"> B) Line Graph </div>
                         <br>
                         <img src="images/linegraphview.png" id="linegraphimage" style="border:1px dashed black; padding:10px" width="500" height="300">
-                        <svg class="svg"></svg>  
+                        <svg id = "svg" class="svg"></svg>  
                     </div>
+                </p>
             </div>
 
             <!-- PAGE 2: TEST (probs not g()onna show this in actual functionality - for shwocase) -->
