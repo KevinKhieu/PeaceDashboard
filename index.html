@@ -45,7 +45,18 @@
           <h2 class="uploadCSV">Upload CSV File </h2>
         </div>
         <div class="modal-body">
-          <p>Select your .csv file and upload it!</p>
+          <h1 style="top-padding: 0px; margin: 10px 0 0 0">Select your .csv file and upload it!</h1>
+          <h2 style="padding: 0px; margin: 0px; font-weight: normal;">Make sure it matches the Peace Data Standard format (below)!</h2>
+          <br>
+          <img src="images/sample_csv.png" id="Sample CSV" width="100%" height="100%">
+          <h3 style="font-weight: bold; padding-bottom: 0px; margin-bottom: 0px;">Notes on format:</h3>
+          <ul style="margin-top: 0px;">
+            <li>Make sure that your column names match the example's names</li>
+            <li>The timestamp column can contain date or datetime values</li>
+            <li>The "A ID" and "B ID" columns can contain any identifiers for the two different people</li>
+            <li>The "A Value" and "B Value" columns can contain numerically-coded data or words denoting group membership</li>
+            
+          </ul>
         </div>
         <div class="modal-footer">
             <input id = "csvUploader" type="file" accept=".csv" name="csvfile" onchange="uploadedFileChange()"/>
