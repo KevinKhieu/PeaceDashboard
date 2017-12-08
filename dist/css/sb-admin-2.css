@@ -8,6 +8,7 @@ body {
 }
 #wrapper {
   width: 100%;
+  background-image: url('images/earth.jpg');
 }
 
 .subTitle{
@@ -18,6 +19,7 @@ body {
 
 .page-header{
   /*background-color: #8c1515;*/
+  background-image: url('images/earth.jpg');
   background-color: #F9F6EF;
   color:black;
   font-size: 60px;
