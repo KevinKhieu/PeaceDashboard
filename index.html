@@ -46,13 +46,13 @@
         </div>
         <div class="modal-body">
           <h1 style="top-padding: 0px; margin: 10px 0 0 0">Select your .csv file and upload it!</h1>
-          <h2 style="padding: 0px; margin: 0px; font-weight: normal;">Make sure it matches the Peace Data Standard format (below)!</h2>
+          <h2 style="padding: 0px; margin: 0px; font-weight: normal;">Make sure it matches the Peace Data Standard format below</h2>
           <br>
           <img src="images/sample_csv.png" id="Sample CSV" width="100%" height="100%">
           <h3 style="font-weight: bold; padding-bottom: 0px; margin-bottom: 0px;">Notes on format:</h3>
           <ul style="margin-top: 0px;">
             <li>Make sure that your column names match the example's names</li>
-            <li>The timestamp column can contain date or datetime values</li>
+            <li>The timestamp column can contain either date or datetime values</li>
             <li>The "A ID" and "B ID" columns can contain any identifiers for the two different people</li>
             <li>The "A Value" and "B Value" columns can contain numerically-coded data or words denoting group membership</li>
             
@@ -77,32 +77,57 @@
         <div id="page-wrapper">
             <div class="page-header" onclick="goBackToLaunch()">
             <div class="page-header">
-                <img src="images/StanfordEmblem.png" id="stanfordEmblem" width="80" height="80" class="center">
-                    - POSITIVE PEACE -
-                        <img src="images/StanfordLab.png" id="StanfordLab" width="70" height="70" class ="center">
+                <h2 style="margin-top: 0px; color: white;">
+	                <a href="https://www.stanford.edu/" target="_blank" style="text-decoration: none;">
+		                <img src="images/StanfordEmblem.png" id="stanfordEmblem" width="130" height="130" class="center">
+		            </a>
+		                	POSITIVE PEACE
+		            <a href="https://peaceinnovation.stanford.edu/" target="_blank">    
+		            	<img src="images/StanfordLab.png" id="StanfordLab" width="110" height="110" class ="center">
+		            </a>
+                </h2>
     </div>
     </div>
             <!-- PAGE 1 -->
             <div id = "Launchpage" class = "row" style="display:initial;">
-                <div id="Welcome" class ="title"> Welcome to the Peace Data Dashboard </div>
-                <div class="subtitle"> supported by the <i> <a href="https://peaceinnovation.stanford.edu/" target="_blank">Stanford Peace Innovation Lab</a></i> </div>
+                <div id="Welcome" class ="title" style="margin-top: 30px"> Welcome to the Peace Data Dashboard 
+	                <div class="subtitle"> 
+	                	<h3 style="margin-top: 0px;">supported by the <i> <a href="https://peaceinnovation.stanford.edu/" target="_blank" style="color: #820000;">Stanford Peace Innovation Lab</a></i> 
+	                	</h3>
+	                </div>
+                </div>
+                <br>           
+                <div id="desc" style="font-size: 20px; text-align: left;">
+                	<h3>
+                		<pre> For peace entrepreneurs, groups, and companies 
+ looking to visualize their <i style="color: red;">peace data</i>. 
+                		</pre>
+                	</h3>
+                </div>
+
+                <img id="earth" src="images/earth.jpg" height="570" width="570" align="right">
 
                 <br>
                 <br>
-            
-
-                <div style="font-size: 20px"> For peace entrepreneurs, groups, and companies looking to visualize their peace data. </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 <br>
 
-                <img src="images/earth.jpg" height="500" width="500">
+                <div id="Subtitle" class="subtitle"> 
+                	<h3 align="left">Click the button below to start plotting your data!</h3>
+                </div>
                 <br>
-                <br>
-                <div id="Subtitle" class="subtitle"> Click the button below to start plotting your data! </div>
-                <br>
-                <button id = "PlotData" class="btn btn-default" type="button" onclick="ChangeDiv(1)">
+                <button id = "PlotData" class="btn btn-default" type="button" style="float: left;" onclick="ChangeDiv(1)">
                     Plot My Data
                 </button>
             </div>
+
             <div id="graphOptions" class="graphOptions">
                 <br>
                 <br>
